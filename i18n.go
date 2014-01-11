@@ -157,10 +157,28 @@ func (l Locale) Index() int {
 	return IndexLang(l.Lang)
 }
 
+// Splits string with splitter at first occurrence but if the splitter is escaped
+// does nothing
+func SplitEscaped(format string, splitter string) []string {
+	splitat := 0
+	for i, v := range format {
+		s := string(v)
+		if s == splitter && i > 0 && string(t1[i-1]) != "\\" {
+			splitat = i
+		}
+	}
+
+	if splitat != 0 {
+		fmt.Println([]string{t1[:splitat], t1[(splitat + 1):]})
+	} else {
+		fmt.Println([]string{t1})
+	}
+}
+
 // Tr translate content to target language.
 func Tr(lang, format string, args ...interface{}) string {
 	var section string
-	parts := strings.SplitN(format, ".", 2)
+	parts := SplitEscaped(format, ".")
 	if len(parts) == 2 {
 		section = parts[0]
 		format = parts[1]
