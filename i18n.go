@@ -169,9 +169,9 @@ func SplitEscaped(format string, splitter string) []string {
 	}
 
 	if splitat != 0 {
-		fmt.Println([]string{t1[:splitat], t1[(splitat + 1):]})
+		return []string{t1[:splitat], t1[(splitat + 1):]}
 	} else {
-		fmt.Println([]string{t1})
+		return []string{t1}
 	}
 }
 
